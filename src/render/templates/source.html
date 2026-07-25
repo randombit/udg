@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<h1><span class="kindword">Source</span> {{ title }}</h1>
+<div class="srcview"><pre class="linenos">{{ linenos_html|safe }}</pre><pre class="codecol">{{ code_html|safe }}</pre></div>
+{% endblock %}

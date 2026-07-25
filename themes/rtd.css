@@ -1,0 +1,159 @@
+/* udg example theme: "rtd"
+ *
+ * An approximation of sphinx_rtd_theme (Read the Docs), the default
+ * look of half of Sphinx-land — for projects that want their migration
+ * to feel familiar. Usage:
+ *
+ *     [output]
+ *     extra_css = "themes/rtd.css"
+ *
+ * Like the original, this theme is light-only: it overrides the
+ * builtin dark-mode palette too (extra_css loads after the builtin
+ * sheet, so these :root values win in both color schemes).
+ *
+ * Fonts: RTD uses Lato and Roboto Slab. No remote fonts are fetched —
+ * they apply if installed locally, with system fallbacks otherwise.
+ */
+
+:root {
+  --bg: #fcfcfc;
+  --fg: #404040;
+  --muted: #808080;
+  --link: #2980b9;
+  --sig-bg: #e7f2fa;
+  --border: #e1e4e5;
+  --chip-since-bg: #dbfaf4;
+  --chip-since-fg: #16a085;
+  --chip-dep-bg: #fdf3f2;
+  --chip-dep-fg: #e74c3c;
+  --warn-bg: #ffedcc;
+  --note-bg: #e7f2fa;
+  --dep-bg: #fdf3f2;
+  --topbar-bg: #2980b9;
+  --topbar-fg: #fcfcfc;
+  --target-bg: #fff3c4;
+  --hl-com: #8d9ca9;
+  --hl-str: #27ae60;
+  --hl-kw: #2980b9;
+  --hl-num: #e67e22;
+  --hl-fn: #8e44ad;
+  --hl-ty: #d35400;
+}
+
+body {
+  font-family: "Lato", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  /* Content column sits on RTD's gray backdrop. */
+  background: #edf0f2;
+}
+main {
+  background: var(--bg);
+}
+
+/* Slab-serif headings, RTD's most recognizable trait. */
+h1,
+h2,
+h3,
+.brand,
+.navtitle {
+  font-family: "Roboto Slab", Rockwell, "Trebuchet MS", Georgia, serif;
+}
+
+/* The dark sidebar. */
+.sidebar {
+  background: #343131;
+  border-right: none;
+}
+.sidebar .navtitle,
+.sidebar .navtitle a {
+  color: #55a5d9;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.navtree a {
+  color: #d9d9d9;
+  display: block;
+  padding: 0.15rem 0.4rem;
+}
+.navtree a:hover {
+  background: #4e4a4a;
+  color: #d9d9d9;
+}
+.navtree li.current > a {
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* Signature boxes: the pale blue panel with the blue top rule. */
+pre.sig {
+  background: #e7f2fa;
+  border: 1px solid #d6e4f0;
+  border-top: 3px solid #6ab0de;
+  border-radius: 0;
+}
+.member {
+  border-left: 3px solid transparent;
+}
+.member:target {
+  border-left-color: #6ab0de;
+}
+
+/* RTD's red inline literals — links in code stay link-blue. */
+.docbody code,
+.fieldline code,
+td code {
+  color: #e74c3c;
+  background: #fff;
+  border: 1px solid #e1e4e5;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+a code,
+.docbody a code {
+  color: var(--link);
+}
+pre code,
+.docbody pre code {
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Admonitions with the classic full-width title bar. */
+.note,
+.warning,
+.deprecation {
+  padding: 0 12px 12px;
+  border-radius: 0;
+}
+.note > strong,
+.warning > strong,
+.deprecation > strong {
+  display: block;
+  margin: 0 -12px 10px;
+  padding: 6px 12px;
+  color: #fff;
+  font-family: inherit;
+}
+.note > strong {
+  background: #6ab0de;
+}
+.warning > strong {
+  background: #f0b37e;
+}
+.deprecation > strong {
+  background: #e74c3c;
+}
+
+/* Grid-bordered doc tables. */
+table.doctable th,
+table.doctable td {
+  border: 1px solid #e1e4e5;
+  padding: 0.4rem 0.7rem;
+}
+table.doctable th {
+  background: #f3f6f6;
+  border-bottom-width: 2px;
+}

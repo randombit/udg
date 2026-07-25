@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1><span class="kindword">Module</span> {{ title }}</h1>
+{% if brief_html %}<p class="brief">{{ brief_html|safe }}</p>{% endif %}
+{% if submodules %}
+<h2>Modules</h2>
+<table class="rows">{% for r in submodules %}<tr><td class="namecol"><a href="{{ root }}{{ r.url }}">{{ r.name }}</a></td><td>{{ r.summary_html|safe }}</td></tr>{% endfor %}</table>
+{% endif %}
+{% for sec in sections %}
+<h2>{{ sec.title }}</h2>
+<table class="rows">{% for r in sec.rows %}<tr><td class="namecol"><a href="{{ root }}{{ r.url }}">{{ r.name }}</a>{% if r.since %} <span class="chip since">{{ r.since }}</span>{% endif %}{% if r.deprecated %} <span class="chip dep">deprecated</span>{% endif %}</td><td>{{ r.summary_html|safe }}</td></tr>{% endfor %}</table>
+{% endfor %}
+{% endblock %}

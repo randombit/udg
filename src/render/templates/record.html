@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1><span class="kindword">{{ kind_word }}</span> {{ title }}
+{% if since %}<span class="chip since">since {{ since }}</span>{% endif %}
+{% if deprecated %}<span class="chip dep">deprecated</span>{% endif %}
+{% if item_src %}<a class="srclink" href="{{ root }}{{ item_src }}">[src]</a>{% endif %}</h1>
+{% if bindings %}<p class="bindingline">Also available in: {% for b in bindings %}<a href="{{ root }}{{ b.url }}">{{ b.label }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>{% endif %}
+{% if defined_in %}<p class="definedin">Defined in {% if defined_in.url %}<a href="{{ root }}{{ defined_in.url }}"><code>{{ defined_in.name }}</code></a>{% else %}<code>{{ defined_in.name }}</code>{% endif %}</p>{% endif %}
+<pre class="sig main">{{ sig_html|safe }}</pre>
+{% set d = docs %}{% include "docblock.html" %}
+{% if derived %}
+<h2>Derived classes</h2>
+<table class="rows">{% for r in derived %}<tr><td class="namecol"><a href="{{ root }}{{ r.url }}">{{ r.name }}</a></td><td>{{ r.summary_html|safe }}</td></tr>{% endfor %}</table>
+{% endif %}
+{% if nested %}
+<h2>Nested types</h2>
+<table class="rows">{% for r in nested %}<tr><td class="namecol"><a href="{{ root }}{{ r.url }}">{{ r.name }}</a>{% if r.deprecated %} <span class="chip dep">deprecated</span>{% endif %}</td><td>{{ r.summary_html|safe }}</td></tr>{% endfor %}</table>
+{% endif %}
+{% if constants %}
+<h2>Constants</h2>
+<table class="rows enumtable">
+{% for v in constants %}
+<tr id="{{ v.anchor }}"><td class="namecol"><code>{{ v.name }}</code></td><td class="val">{% if v.value %}{{ v.value }}{% endif %}</td><td>{% if v.deprecated %}<span class="chip dep">deprecated</span> {% endif %}{% if v.dep_html %}<span class="depnote">{{ v.dep_html|safe }}</span> {% endif %}{% if v.summary_html %}{{ v.summary_html|safe }}{% endif %}</td></tr>
+{% endfor %}
+</table>
+{% endif %}
+{% for sec in member_sections %}
+<h2>{{ sec.title }}</h2>
+{% for m in sec.members %}
+<div class="member" id="{{ m.anchor }}">
+  <div class="memhead"><pre class="sig">{{ m.sig_html|safe }}</pre>
+  <div class="memmeta">{% if m.since %}<span class="chip since">since {{ m.since }}</span>{% endif %}{% if m.deprecated %}<span class="chip dep">deprecated</span>{% endif %}{% if m.src_url %}<a class="srclink" href="{{ root }}{{ m.src_url }}">[src]</a>{% endif %}<a class="anchorlink" href="#{{ m.anchor }}">§</a></div></div>
+  {% set d = m.docs %}{% include "docblock.html" %}
+</div>
+{% endfor %}
+{% endfor %}
+{% if inherited %}
+<h2>Inherited members</h2>
+{% for g in inherited %}
+<p class="inheritline"><span class="lbl">From {% if g.url %}<a href="{{ root }}{{ g.url }}">{{ g.name }}</a>{% else %}{{ g.name }}{% endif %}:</span>
+{% for m in g.members %}<code>{% if m.url %}<a href="{{ root }}{{ m.url }}">{{ m.name }}</a>{% else %}{{ m.name }}{% endif %}</code>{% if not loop.last %} {% endif %}{% endfor %}</p>
+{% endfor %}
+{% endif %}
+{% endblock %}

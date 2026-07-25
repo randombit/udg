@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} — {{ project }}</title>
+<link rel="stylesheet" href="{{ root }}static/style.css">
+{% if branding.extra_css %}<link rel="stylesheet" href="{{ root }}static/{{ branding.extra_css }}">{% endif %}
+{% if branding.favicon %}<link rel="icon" href="{{ root }}static/{{ branding.favicon }}">{% endif %}
+<script>const UDG_ROOT = "{{ root|safe }}";</script>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ root }}index.html">{% if branding.logo %}<img class="logo" src="{{ root }}static/{{ branding.logo }}" alt="">{% endif %}{{ project }}</a>
+  <div class="searchwrap">
+    <input id="search" type="search" placeholder="Search API… (press s)" autocomplete="off" spellcheck="false">
+    <div id="search-results" hidden></div>
+  </div>
+</header>
+<div class="layout">
+  <nav class="sidebar" id="sidebar"{% if nav_current %} data-current="{{ nav_current }}"{% endif %}>{% if nav_html %}{{ nav_html|safe }}{% endif %}</nav>
+  <main>
+    {% if crumbs %}<nav class="crumbs">{% for c in crumbs %}{% if not loop.first %}<span class="sep">/</span>{% endif %}{% if c.url %}<a href="{{ root }}{{ c.url }}">{{ c.name }}</a>{% else %}<span>{{ c.name }}</span>{% endif %}{% endfor %}</nav>{% endif %}
+    {% block content %}{% endblock %}
+    {% if branding.footer %}<footer class="sitefooter">{{ branding.footer }}</footer>{% endif %}
+  </main>
+</div>
+{% if nav_src %}<script src="{{ nav_src }}" defer></script>
+{% endif %}<script src="{{ root }}static/search.js" defer></script>
+</body>
+</html>

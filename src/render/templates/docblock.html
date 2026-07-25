@@ -1,0 +1,10 @@
+{% if d %}
+{% if d.deprecated_html %}<div class="deprecation"><strong>Deprecated:</strong> {{ d.deprecated_html|safe }}</div>{% endif %}
+{% if d.body_html %}<div class="docbody">{{ d.body_html|safe }}</div>{% endif %}
+{% if d.params %}<dl class="params">{% for p in d.params %}<dt><code>{{ p.name }}</code></dt><dd>{{ p.html|safe }}</dd>{% endfor %}</dl>{% endif %}
+{% if d.returns_html %}<p class="fieldline"><span class="lbl">Returns:</span> {{ d.returns_html|safe }}</p>{% endif %}
+{% for t in d.throws_html %}<p class="fieldline"><span class="lbl">Throws:</span> {{ t|safe }}</p>{% endfor %}
+{% for t in d.warnings_html %}<div class="warning"><strong>Warning:</strong> {{ t|safe }}</div>{% endfor %}
+{% for t in d.notes_html %}<div class="note"><strong>Note:</strong> {{ t|safe }}</div>{% endfor %}
+{% if d.see_also_html %}<p class="fieldline"><span class="lbl">See also:</span> {% for s in d.see_also_html %}{{ s|safe }}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+{% endif %}

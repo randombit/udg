@@ -1,0 +1,166 @@
+/* udg example theme: "phosphor"
+ *
+ * Documentation on a green-phosphor terminal: monospace everything,
+ * P1-green text with amber links, faint scanlines, a blinking cursor
+ * on page titles. Dark-only by construction. Usage:
+ *
+ *     [output]
+ *     extra_css = "themes/phosphor.css"
+ *
+ * Everything here is plain CSS over the builtin classes and custom
+ * properties — the same surface any project theme gets.
+ */
+
+:root {
+  --bg: #060906;
+  --fg: #b8e6c0;
+  --muted: #5c8a66;
+  --link: #ffbf47;
+  --sig-bg: #0b120c;
+  --border: #1d3a24;
+  --chip-since-bg: transparent;
+  --chip-since-fg: #6bff8f;
+  --chip-dep-bg: transparent;
+  --chip-dep-fg: #ffbf47;
+  --warn-bg: #291d05;
+  --note-bg: #0a1c10;
+  --dep-bg: #2b0f0f;
+  --topbar-bg: #030503;
+  --topbar-fg: #6bff8f;
+  --target-bg: #14301c;
+  --hl-com: #4e7a58;
+  --hl-str: #9fe6a0;
+  --hl-kw: #6bff8f;
+  --hl-num: #ffbf47;
+  --hl-fn: #7fd8ff;
+  --hl-ty: #ffe08a;
+}
+
+body {
+  font-family: ui-monospace, "JetBrains Mono", "Fira Code", "SF Mono", Menlo,
+    Consolas, monospace;
+}
+
+/* Faint scanlines over everything (decorative only). */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.2) 2px 4px
+  );
+  opacity: 0.3;
+}
+
+::selection {
+  background: #6bff8f;
+  color: #060906;
+}
+
+/* Phosphor glow on the load-bearing text. */
+h1,
+.brand {
+  color: #6bff8f;
+  text-shadow: 0 0 8px rgba(107, 255, 143, 0.45);
+}
+h1::after {
+  content: "\258E";
+  margin-left: 0.25em;
+  animation: udg-blink 1.2s steps(1) infinite;
+}
+@keyframes udg-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  h1::after {
+    animation: none;
+  }
+}
+h2 {
+  color: #6bff8f;
+  border-bottom: 1px dashed var(--border);
+}
+h2::before {
+  content: "## ";
+  color: var(--muted);
+}
+a:hover {
+  text-shadow: 0 0 6px currentColor;
+}
+
+.topbar {
+  border-bottom: 1px solid var(--border);
+}
+#search {
+  background: #030503;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--fg);
+}
+#search:focus {
+  border-color: var(--link);
+}
+#search::placeholder {
+  color: #3d5c45;
+}
+
+.sidebar {
+  background: #050805;
+}
+.navtree li.current > a {
+  color: #6bff8f;
+}
+.navtree li.current > a::before {
+  content: "\25B8 ";
+}
+
+/* Panels: hard corners, hairline borders, a hint of inner glow. */
+pre.sig,
+.docbody pre,
+.srcview {
+  border-radius: 0;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 14px rgba(107, 255, 143, 0.05);
+}
+.member {
+  border-left: 1px solid var(--border);
+}
+.member:target {
+  border-left-color: #6bff8f;
+}
+
+/* Chips as bracketed terminal tags. */
+.chip {
+  border-radius: 0;
+  border: 1px solid currentColor;
+  background: transparent;
+}
+
+.note,
+.warning,
+.deprecation {
+  border-radius: 0;
+  border: 1px solid var(--border);
+}
+.warning {
+  border-color: #66511c;
+}
+.deprecation {
+  border-color: #663333;
+}
+
+table.rows td,
+table.doctable th,
+table.doctable td {
+  border-color: var(--border);
+}
+
+.sitefooter {
+  border-top: 1px dashed var(--border);
+}

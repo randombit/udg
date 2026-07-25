@@ -1,0 +1,8 @@
+/target
+# Generated documentation output
+/build
+# Machine-local build config (pins LIBCLANG_PATH via a symlink dir)
+/.cargo
+
+# Directory of checkouts for testcases
+/testcases

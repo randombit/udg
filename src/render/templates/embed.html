@@ -1,0 +1,5 @@
+<div class="member embed">
+<pre class="sig">{{ sig_html|safe }}</pre>
+<div class="memmeta">{% if since %}<span class="chip since">since {{ since }}</span>{% endif %}{% if deprecated %}<span class="chip dep">deprecated</span>{% endif %}{% if ref_url %}<a class="srclink" href="{{ ref_url }}">full reference</a>{% endif %}</div>
+{% set d = docs %}{% include "docblock.html" %}
+</div>

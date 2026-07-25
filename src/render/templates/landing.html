@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ project }} API documentation</h1>
+{% for t in trees %}
+<h2><a href="{{ root }}{{ t.prefix }}/index.html">{{ t.title }}</a></h2>
+<p class="stats">{{ t.stats }}</p>
+{{ t.tree_html|safe }}
+{% endfor %}
+{% endblock %}
